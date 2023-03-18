@@ -2,9 +2,8 @@ from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.contrib.auth import get_user_model
 
-from apps.core.forms import ServiceAddForm
-from apps.core.forms import UserAdminChangeForm, UserAdminCreationForm
-from apps.core.models import UserData, UserImage, UserFavoriteImage, Service
+from apps.core.forms import ServiceAddForm, UserAdminChangeForm, UserAdminCreationForm
+from apps.core.models import Service, UserData, UserFavoriteImage, UserImage
 
 User = get_user_model()
 
