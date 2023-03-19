@@ -13,18 +13,22 @@ class ServiceAdmin(admin.ModelAdmin):
     form = ServiceAddForm
 
 
-class UserImageInline(admin.StackedInline):
+class UserImageInline(admin.TabularInline):
     model = UserImage
+    fields = ("pk", "name", "image")
+    readonly_fields = ("pk",)
     extra = 0
 
 
 class UserFavoriteImageInline(admin.TabularInline):
     model = UserFavoriteImage
+    fields = ("pk", "name", "url")
+    readonly_fields = ("pk",)
     extra = 0
 
 
 @admin.register(UserData)
-class UserImageAdmin(admin.ModelAdmin):
+class UserDataAdmin(admin.ModelAdmin):
     readonly_fields = ("max_user_images", "max_user_favorites")
     inlines = [
         UserImageInline,
@@ -38,7 +42,7 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserAdminCreationForm
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        ("Personal info", {"fields": ("name", "email", "avatar")}),
+        ("Personal info", {"fields": ("name", "email")}),
         (
             "Permissions",
             {
