@@ -1,8 +1,11 @@
 from drf_spectacular.openapi import OpenApiParameter, OpenApiTypes
 
-search_query_params_schema = [
+get_search_schema = [
     OpenApiParameter(
-        name="query", description="A query string", type=OpenApiTypes.STR, required=True
+        name="query",
+        description="A query string",
+        type=OpenApiTypes.STR,
+        required=True,
     ),
     OpenApiParameter(
         name="page",
@@ -18,7 +21,7 @@ search_query_params_schema = [
     ),
     OpenApiParameter(
         name="service",
-        description="A list of services",
+        description="A list of services to search in, obtainable from /api/services",
         type={"type": "array", "items": {"type": "string"}},
         required=True,
     ),

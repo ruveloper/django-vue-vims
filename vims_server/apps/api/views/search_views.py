@@ -6,7 +6,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.api.docs.schemas import search_query_params_schema
+from apps.api.docs.search_schemas import get_search_schema
 from apps.api.serializers import SearchParamsSerializer
 from apps.core.models import Service
 from apps.services import PexelsApi, PixabayApi, UnsplashApi
@@ -15,7 +15,7 @@ from apps.services import PexelsApi, PixabayApi, UnsplashApi
 class Search(APIView):
     throttle_scope = "search"
 
-    @extend_schema(parameters=search_query_params_schema)
+    @extend_schema(parameters=get_search_schema)
     def get(self, request: Request, format=None):
         # * Validate query params
         serializer = SearchParamsSerializer(data=request.query_params)

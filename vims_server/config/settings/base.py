@@ -64,6 +64,7 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
 ]
 
 LOCAL_APPS = [
@@ -242,6 +243,10 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        # 'rest_framework.renderers.BrowsableAPIRenderer', # Disable Browsable API
+    ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     # * Throttling
     # https://www.django-rest-framework.org/api-guide/throttling/
@@ -268,8 +273,12 @@ CORS_ALLOW_ALL_ORIGINS = env.bool("CORS_ALLOW_ALL_ORIGINS", default=False)
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
+    "SWAGGER_UI_DIST": "SIDECAR",  # shorthand to use the sidecar instead
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "REDOC_DIST": "SIDECAR",
+    # * Project Settings
     "TITLE": "VIMS API",
-    "DESCRIPTION": "Documentation of API endpoints of vims",
+    "DESCRIPTION": "Documentation of API endpoints",
     "VERSION": "1.0.0",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
 }

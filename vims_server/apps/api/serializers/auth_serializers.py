@@ -7,13 +7,19 @@ User = get_user_model()
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-        required=True, validators=[UniqueValidator(queryset=User.objects.all())]
+    username = serializers.CharField(
+        min_length=5,
+        max_length=15,
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())],
     )
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password]
     )
     password2 = serializers.CharField(write_only=True, required=True)
+    email = serializers.EmailField(
+        required=True, validators=[UniqueValidator(queryset=User.objects.all())]
+    )
 
     def validate(self, attrs):
         if attrs["password"] != attrs["password2"]:

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -7,6 +8,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.api.docs.auth_schemas import post_logout_schema
 from apps.api.helpers import validate_recaptcha_form
 from apps.api.serializers import RegisterSerializer
 from apps.core.models import User as User_Model
@@ -24,6 +26,7 @@ class TokenLogin(ObtainAuthToken):
 class TokenLogout(APIView):
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(parameters=post_logout_schema)
     def post(self, request: Request, format=None):
         try:
             request.user.auth_token.delete()
@@ -37,6 +40,7 @@ class TokenLogout(APIView):
 
 
 class Registration(APIView):
+    @extend_schema(request=RegisterSerializer)
     def post(self, request: Request, format=None):
         # * reCaptcha Form Validation
         validate_recaptcha_form(request)
