@@ -1,15 +1,24 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.api.helpers import validate_recaptcha_form
 from apps.api.serializers import RegisterSerializer
 from apps.core.models import User as User_Model
 
 User: User_Model = get_user_model()
+
+
+class TokenLogin(ObtainAuthToken):
+    def post(self, request: Request, *args, **kwargs):
+        # * reCaptcha Form Validation
+        validate_recaptcha_form(request)
+        return super().post(request, *args, **kwargs)
 
 
 class TokenLogout(APIView):
@@ -29,6 +38,9 @@ class TokenLogout(APIView):
 
 class Registration(APIView):
     def post(self, request: Request, format=None):
+        # * reCaptcha Form Validation
+        validate_recaptcha_form(request)
+        # * Fields Validation
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 

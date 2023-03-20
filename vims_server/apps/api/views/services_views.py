@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models.query import QuerySet
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -17,3 +18,11 @@ class ListServices(APIView):
                 "services": available_services,
             }
         )
+
+
+class ReCaptcha(APIView):
+    def get(self, request: Request, format=None):
+        # * Send reCaptcha Public Key
+        if settings.DEBUG:
+            return Response({"key": "MyPublicReCaptchaKey"})
+        return Response({"key": settings.RECAPTCHA_PUBLIC_KEY})
