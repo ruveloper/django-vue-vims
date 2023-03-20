@@ -32,6 +32,8 @@ class PexelsApi:
             },
             headers={"Authorization": self.service.apikey},
         )
+        if not response:
+            return []
         data = response.json()
         api_images: list[ApiImage] = []
         for image in data.get("photos", []):
@@ -66,6 +68,8 @@ class UnsplashApi:
             },
             headers={"Authorization": f"Client-ID {self.service.apikey}"},
         )
+        if not response:
+            return []
         data = response.json()
         api_images: list[ApiImage] = []
         for image in data.get("results", []):
@@ -102,6 +106,8 @@ class PixabayApi:
                 "per_page": self.service.per_page_default if not per_page else per_page,
             },
         )
+        if not response:
+            return []
         data = response.json()
         api_images: list[ApiImage] = []
         for image in data.get("hits", []):
