@@ -37,9 +37,9 @@ class PexelsApi:
         data = response.json()
         api_images: list[ApiImage] = []
         for image in data.get("photos", []):
-            image_name = (
-                image["alt"][:20] + "..." if len(image["alt"]) > 20 else image["alt"]
-            )
+            image_alt = image.get("alt", None)
+            image_alt = image_alt if image_alt is not None else f"Image {image['id']}"
+            image_name = image_alt[:20] + "..." if len(image_alt) > 20 else image_alt
             api_images.append(
                 ApiImage(
                     self.service.service,
@@ -73,11 +73,9 @@ class UnsplashApi:
         data = response.json()
         api_images: list[ApiImage] = []
         for image in data.get("results", []):
-            image_name = (
-                image["alt_description"][:20] + "..."
-                if len(image["alt_description"]) > 20
-                else image["alt_description"]
-            )
+            image_alt = image.get("alt_description", None)
+            image_alt = image_alt if image_alt is not None else f"Image {image['id']}"
+            image_name = image_alt[:20] + "..." if len(image_alt) > 20 else image_alt
             api_images.append(
                 ApiImage(
                     self.service.service,
@@ -101,7 +99,7 @@ class PixabayApi:
             url=self.service.api_endpoint,
             params={
                 "key": self.service.apikey,
-                "query": query,
+                "q": query,
                 "page": page,
                 "per_page": self.service.per_page_default if not per_page else per_page,
             },
