@@ -114,6 +114,23 @@ LOGGING = {
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    # * Throttling
+    # https://www.django-rest-framework.org/api-guide/throttling/
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+        "rest_framework.throttling.ScopedRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        # * User Access
+        "user": "1000/hour",
+        "uploads": "20/day",
+        # * Public Access
+        "anon": "500/hour",
+        "search": "200/hour",
+    },
+}
 # Tools that generate code samples can use SERVERS to point to the correct domain
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa F405
     {"url": "https://ruveloper.dev", "description": "Production server"}

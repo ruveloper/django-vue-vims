@@ -248,21 +248,6 @@ REST_FRAMEWORK = {
         # 'rest_framework.renderers.BrowsableAPIRenderer', # Disable Browsable API
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    # * Throttling
-    # https://www.django-rest-framework.org/api-guide/throttling/
-    "DEFAULT_THROTTLE_CLASSES": [
-        "rest_framework.throttling.AnonRateThrottle",
-        "rest_framework.throttling.UserRateThrottle",
-        "rest_framework.throttling.ScopedRateThrottle",
-    ],
-    "DEFAULT_THROTTLE_RATES": {
-        # * User Access
-        "user": "1000/hour",
-        "uploads": "20/day",
-        # * Public Access
-        "anon": "500/hour",
-        "search": "30/hour",
-    },
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
