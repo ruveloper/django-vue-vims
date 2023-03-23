@@ -72,8 +72,13 @@ class UserImage(models.Model):
 class UserFavoriteImage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
+    service = models.CharField(max_length=255, default="No Service")
+    image_id = models.CharField(max_length=255, default="No Image ID")
+    author = models.CharField(max_length=255, default="No Author")
     name = models.CharField(max_length=255, default="No Name")
-    url = models.URLField()
+    link = models.URLField()
+    preview_url = models.URLField()
+    original_url = models.URLField()
 
     # * Relations
     user_data = models.ForeignKey(UserData, on_delete=models.CASCADE)

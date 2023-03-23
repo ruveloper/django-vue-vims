@@ -7,19 +7,17 @@ User = get_user_model()
 
 
 class UserFavoriteImageSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
+    def create(self, validated_data: dict):
         user = self.context["request"].user
         user_data, created = UserData.objects.get_or_create(user=user)
         user_favorite_image = UserFavoriteImage.objects.create(
-            name=validated_data["name"],
-            url=validated_data["url"],
-            user_data=user_data,
+            user_data=user_data, **validated_data
         )
         return user_favorite_image
 
     class Meta:
         model = UserFavoriteImage
-        fields = ("id", "name", "url")
+        exclude = ("created", "user_data")
 
 
 class UserImageSerializer(serializers.ModelSerializer):
