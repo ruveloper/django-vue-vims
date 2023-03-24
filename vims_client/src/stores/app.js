@@ -7,12 +7,10 @@ export const useAppStore = defineStore('app', () => {
   // App Views: search, profile, login, signup
   const currentView = ref('search')
 
-  // * USER DATA
   const userData = ref({})
-
+  const userToken = ref('') // ex: "Token 032579768a98dda5da05a6fedf28ea2786adddb1"
 
   // * APP AUTHENTICATION
-  const userToken = ref('') // ex: "Token 032579768a98dda5da05a6fedf28ea2786adddb1"
 
   async function getTokenFromCookies() {
     const cookies = document.cookie.split(';')
@@ -43,20 +41,19 @@ export const useAppStore = defineStore('app', () => {
 
   function saveTokenToCookies(accessToken) {
     // Set the expiry date to one year from now
-    const expiryDate = new Date();
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+    const expiryDate = new Date()
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1)
     // Save the token
-    document.cookie = `accessToken=${accessToken}; expires=${expiryDate.toUTCString()}; path=/`;
+    document.cookie = `accessToken=${accessToken}; expires=${expiryDate.toUTCString()}; path=/`
   }
 
   function removeTokenFromCookies() {
     // Set the expiry date to a date in the past
-    const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() - 5);
+    const expiryDate = new Date()
+    expiryDate.setDate(expiryDate.getDate() - 5)
     // Remove the authentication token cookie by setting its expiry time to a date in the past
-    document.cookie = `accessToken=; expires=${expiryDate.toUTCString()}; path=/`;
+    document.cookie = `accessToken=; expires=${expiryDate.toUTCString()}; path=/`
   }
-
 
   async function signup(formData) {
     try {
@@ -131,6 +128,62 @@ export const useAppStore = defineStore('app', () => {
     currentView.value = 'search'
   }
 
+  // * USER DATA
+  async function addFavoriteImage(imageData) {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/user/favorites/', imageData, {
+        headers: {
+          Authorization: userToken.value
+        }
+      })
+
+      // Update user data
+      const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+        headers: {
+          Authorization: userToken.value
+        }
+      })
+
+      // Assign data only if success
+      userData.value = responseUserData.data
+      return response
+    } catch (error) {
+      if (error.response.status === 403) {
+        // * On Invalid Token, logout
+        userToken.value = ''
+        removeTokenFromCookies()
+        userData.value = {}
+      }
+    }
+  }
+
+  async function removeFavoriteImage(imageData) {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/user/favorites/${imageData.id}/`, {
+        headers: {
+          Authorization: userToken.value
+        }
+      })
+
+      // Update user data
+      const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+        headers: {
+          Authorization: userToken.value
+        }
+      })
+
+      // Assign data only if success
+      userData.value = responseUserData.data
+    } catch (error) {
+      if (error.response.status === 403) {
+        // * On Invalid Token, logout
+        userToken.value = ''
+        removeTokenFromCookies()
+        userData.value = {}
+      }
+    }
+  }
+
   return {
     currentView,
     userData,
@@ -138,6 +191,8 @@ export const useAppStore = defineStore('app', () => {
     getTokenFromCookies,
     signup,
     login,
-    logout
+    logout,
+    addFavoriteImage,
+    removeFavoriteImage
   }
 })
