@@ -1,6 +1,6 @@
-# VIMSearch
+# VIMS
 
-Image tools and search application using Django and Vue.js 3.
+VIMS is an image vault and search aggregator application developed with Django and Vue.js 3. With VIMS, you can explore stock photos from different sources or services and save your favorites.
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
@@ -14,7 +14,28 @@ Image tools and search application using Django and Vue.js 3.
 [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindui.com/)
 
 ## :rocket: Try [VIMS](https://vims.ruveloper.dev) :globe_with_meridians:
-The project is **LIVE** and can be accessed at the following link [VIMS](https://vims.ruveloper.dev).
+
+### The project is **LIVE** and can be accessed at the following link [VIMS](https://vims.ruveloper.dev).
+
+### 📚👀 Check the API documentation here [VIMS API](https://vims.ruveloper.dev/api/).
+
+
+![Demo](media/demo.webp "Demo")
+
+
+## Features
+
+* REST API developed with Django and Django Rest Framework
+* Web client developed with Vue.js 3, TailwindCSS and DaisyUI
+* State managment with Pinia.
+* Consume popular image services APIs like Pexels and Unsplash
+* Authentication and registration endpoints
+* Sign Up, Sign In and Log Out functionality
+* Managed session token with Cookies
+* Responsive design
+* Scalable project structure
+* Production-ready setup
+* reCaptcha v3 form validation
 
 ## License
 

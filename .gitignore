@@ -1,0 +1,4 @@
+### PROJECT SPECIFIC
+media/*
+!media/demo.webp
+!media/demo_search.jpg
