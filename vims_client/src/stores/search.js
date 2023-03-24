@@ -30,7 +30,7 @@ export const useSearchStore = defineStore('search', () => {
 
   async function _getSearch(queryParams) {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/search/?${queryParams}`)
+      const response = await axios.get(`/api/search/?${queryParams}`)
       const data = response.data
       const results = data.results
       return results

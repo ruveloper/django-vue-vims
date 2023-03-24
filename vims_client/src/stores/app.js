@@ -22,7 +22,7 @@ export const useAppStore = defineStore('app', () => {
         const accessToken = cookie.substring('accessToken='.length, cookie.length)
         try {
           // Get user data
-          const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+          const responseUserData = await axios.get('/api/user/details/', {
             headers: {
               Authorization: accessToken
             }
@@ -57,11 +57,11 @@ export const useAppStore = defineStore('app', () => {
 
   async function signup(formData) {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/auth/register/', formData)
+      const response = await axios.post('/api/auth/register/', formData)
       const accessToken = `Token ${response.data.token}`
 
       // Get user data
-      const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+      const responseUserData = await axios.get('/api/user/details/', {
         headers: {
           Authorization: accessToken
         }
@@ -79,11 +79,11 @@ export const useAppStore = defineStore('app', () => {
 
   async function login(formData) {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/auth/token/', formData)
+      const response = await axios.post('/api/auth/token/', formData)
       const accessToken = `Token ${response.data.token}`
 
       // Get user data
-      const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+      const responseUserData = await axios.get('/api/user/details/', {
         headers: {
           Authorization: accessToken
         }
@@ -102,7 +102,7 @@ export const useAppStore = defineStore('app', () => {
   async function logout() {
     try {
       await axios.post(
-        'http://127.0.0.1:8000/api/auth/logout/',
+        '/api/auth/logout/',
         {},
         {
           headers: {
@@ -131,14 +131,14 @@ export const useAppStore = defineStore('app', () => {
   // * USER DATA
   async function addFavoriteImage(imageData) {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/user/favorites/', imageData, {
+      const response = await axios.post('/api/user/favorites/', imageData, {
         headers: {
           Authorization: userToken.value
         }
       })
 
       // Update user data
-      const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+      const responseUserData = await axios.get('/api/user/details/', {
         headers: {
           Authorization: userToken.value
         }
@@ -159,14 +159,14 @@ export const useAppStore = defineStore('app', () => {
 
   async function removeFavoriteImage(imageData) {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/user/favorites/${imageData.id}/`, {
+      await axios.delete(`/api/user/favorites/${imageData.id}/`, {
         headers: {
           Authorization: userToken.value
         }
       })
 
       // Update user data
-      const responseUserData = await axios.get('http://127.0.0.1:8000/api/user/details/', {
+      const responseUserData = await axios.get('/api/user/details/', {
         headers: {
           Authorization: userToken.value
         }

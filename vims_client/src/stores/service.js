@@ -13,7 +13,7 @@ export const useServiceStore = defineStore('service', () => {
 
   async function getServices() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/services/')
+      const response = await axios.get('/api/services/')
       const data = response.data
       availableServices.value = data['services']
       return availableServices.value
@@ -30,7 +30,7 @@ export const useServiceStore = defineStore('service', () => {
 
   async function _getReCaptchaPublicKey() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/recaptcha/')
+      const response = await axios.get('/api/recaptcha/')
       const data = response.data
       reCaptchaKey.value = data['key']
       return reCaptchaKey.value

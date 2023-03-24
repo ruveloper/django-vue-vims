@@ -6,9 +6,11 @@ import IconMenu from './icons/IconMenu.vue'
 const app = useAppStore()
 </script>
 <template>
-  <header class="container mx-auto navbar py-2 bg-base-100 rounded-lg shadow-lg z-10">
+  <header class="container h-10 mx-auto navbar py-2 bg-base-100 rounded-lg shadow-lg z-10">
     <div class="flex-1">
-      <a @click="app.currentView = 'search'" class="btn btn-ghost normal-case text-xl">VIMSearch</a>
+      <a @click="app.currentView = 'search'" class="h-10 cursor-pointer">
+        <img class="h-full" src="@/assets/img/logo_name_xs.jpg" alt="vims logo" />
+      </a>
     </div>
     <div class="flex-none">
       <!-- * ----------------------- DESKTOP NAVBAR LAYOUT ----------------------- -->
