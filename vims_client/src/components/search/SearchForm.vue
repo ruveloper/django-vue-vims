@@ -81,7 +81,7 @@ onMounted(() => {
 
 <style scoped>
 .search-background {
-  background-color: #6b6b6b;
+  background-color: #6b7280;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

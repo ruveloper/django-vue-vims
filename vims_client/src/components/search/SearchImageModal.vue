@@ -23,7 +23,7 @@ const props = defineProps({
         <div class="w-full h-3/4 md:h-full">
           <img
             class="w-full h-full object-contain"
-            :src="props.image.original_url"
+            :src="props.image.preview_url"
             :alt="props.image.name"
           />
         </div>

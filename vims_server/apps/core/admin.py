@@ -20,9 +20,18 @@ class UserImageInline(admin.TabularInline):
     extra = 0
 
 
-class UserFavoriteImageInline(admin.TabularInline):
+class UserFavoriteImageInline(admin.StackedInline):
     model = UserFavoriteImage
-    fields = ("pk", "name", "url")
+    fields = (
+        "pk",
+        "service",
+        "image_id",
+        "author",
+        "name",
+        "link",
+        "preview_url",
+        "original_url",
+    )
     readonly_fields = ("pk",)
     extra = 0
 

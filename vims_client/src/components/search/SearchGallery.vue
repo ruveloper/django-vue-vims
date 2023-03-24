@@ -1,7 +1,7 @@
 <script setup>
-import { capitalize, ref, createApp, h } from 'vue'
+import { capitalize, createApp, h } from 'vue'
 import { useSearchStore } from '@/stores/search.js'
-import SearchImageCard from '../common/SearchImageCard.vue'
+import SearchImageCard from './SearchImageCard.vue'
 
 // * Stores
 const search = useSearchStore()
@@ -53,31 +53,37 @@ async function addImages(service) {
       class="w-full"
     >
       <!-- * GALLERY BY SERVICE -->
-      <div :class="{ hidden: service !== search.currentSelectedService }" class="relative">
-        <!-- * IMAGES -->
-        <div :id="service + '-image-container'">
-          <div class="gap-5 columns-xs">
-            <div
-              v-for="(image, index) in imageServiceData.images"
-              :key="index"
-              class="w-full aspect-auto mb-5"
-            >
-              <SearchImageCard :image="image" />
+      <div :class="{ hidden: service !== search.currentSelectedService }">
+        <div v-if="imageServiceData.images.length > 0" class="relative">
+          <!-- * IMAGES -->
+          <div :id="service + '-image-container'">
+            <div class="gap-5 columns-xs">
+              <div
+                v-for="(image, index) in imageServiceData.images"
+                :key="index"
+                class="w-full aspect-auto mb-5"
+              >
+                <SearchImageCard :image="image" />
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- * LOAD MORE -->
-        <div
-          class="h-40 absolute bottom-0 inset-x-0 flex justify-center items-center bg-gradient-to-t from-white to-transparent"
-        >
-          <button
-            @click="addImages(service)"
-            class="btn btn-wide btn-primary"
-            :class="{ loading: search.isloadingMoreImages }"
+          <!-- * LOAD MORE -->
+          <div
+            class="h-40 absolute bottom-0 inset-x-0 flex justify-center items-center bg-gradient-to-t from-white to-transparent"
           >
-            Load more
-          </button>
+            <button
+              @click="addImages(service)"
+              class="btn btn-wide btn-primary"
+              :class="{ loading: search.isloadingMoreImages }"
+            >
+              Load more
+            </button>
+          </div>
+        </div>
+        <!-- * NO IMAGES RESULT -->
+        <div v-if="imageServiceData.images.length === 0" class="my-20 px-10 text-center text-purple-600 font-bold text-2xl">
+          <p>Nothing to show from {{ capitalize(service) }}</p>
         </div>
       </div>
     </div>

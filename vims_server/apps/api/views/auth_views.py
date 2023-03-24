@@ -53,7 +53,6 @@ class Registration(APIView):
                 username=serializer.validated_data["username"],
                 password=serializer.validated_data["password"],
                 email=serializer.validated_data["email"],
-                name=serializer.validated_data["name"],
             )
             token = Token.objects.create(user=user)
             return Response({"token": token.key}, status=status.HTTP_200_OK)
