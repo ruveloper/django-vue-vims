@@ -68,15 +68,20 @@ export const useServiceStore = defineStore('service', () => {
     }
 
     try {
-      // eslint-disable-next-line no-undef
-      await grecaptcha.ready(async function () {
+      // eslint-disable-next-line no-unused-vars
+      return new Promise((res, rej) => {
         // eslint-disable-next-line no-undef
-        token = await grecaptcha.execute(reCaptchaKey.value, { action: action })
+        grecaptcha.ready(() => {
+          // eslint-disable-next-line no-undef
+          grecaptcha.execute(reCaptchaKey.value, { action: action }).then((token) => {
+            return res(token)
+          })
+        })
       })
     } catch (error) {
       console.error(error)
+      return token
     }
-    return token
   }
 
   // * Show recaptcha badge on selected Views

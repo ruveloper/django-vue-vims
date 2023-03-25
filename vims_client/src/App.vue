@@ -30,9 +30,9 @@ onMounted(() => {
     <!-- The search view should live forever, as mounting it is a high-cost process,
           so it only hides when the view changes. -->
     <SearchView :class="{ hidden: app.currentView !== 'search' }" />
-    <LoginView v-if="app.currentView === 'login' && app.userToken === ''" />
-    <SignupView v-if="app.currentView === 'signup' && app.userToken === ''" />
-    <ProfileView v-if="app.currentView === 'profile' && app.userToken !== ''" />
+    <LoginView v-if="app.currentView === 'login'" />
+    <SignupView v-if="app.currentView === 'signup'" />
+    <ProfileView v-if="app.currentView === 'profile'" />
   </main>
 </template>
 
