@@ -1,7 +1,8 @@
 ### PROJECT SPECIFIC
 .env
-apps/media/
 media/
+static/
+staticfiles/
 # SQLite Databases
 *.sqlite3
 # Tailwind Standalone CLI

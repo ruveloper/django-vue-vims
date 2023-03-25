@@ -39,7 +39,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 
 # STATIC
 # ------------------------
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+WHITENOISE_MANIFEST_STRICT = False
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 # MEDIA
 # ------------------------------------------------------------------------------
@@ -114,26 +116,25 @@ LOGGING = {
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
-REST_FRAMEWORK = {
-    # * Throttling
-    # https://www.django-rest-framework.org/api-guide/throttling/
-    "DEFAULT_THROTTLE_CLASSES": [
-        "rest_framework.throttling.AnonRateThrottle",
-        "rest_framework.throttling.UserRateThrottle",
-        "rest_framework.throttling.ScopedRateThrottle",
-    ],
-    "DEFAULT_THROTTLE_RATES": {
-        # * User Access
-        "user": "1000/hour",
-        "uploads": "20/day",
-        # * Public Access
-        "anon": "500/hour",
-        "search": "200/hour",
-    },
+# * Throttling
+# https://www.django-rest-framework.org/api-guide/throttling/
+REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = [  # noqa F405
+    "rest_framework.throttling.AnonRateThrottle",
+    "rest_framework.throttling.UserRateThrottle",
+    "rest_framework.throttling.ScopedRateThrottle",
+]
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {  # noqa F405
+    # * User Access
+    "user": "1000/hour",
+    "uploads": "20/day",
+    # * Public Access
+    "anon": "500/hour",
+    "search": "200/hour",
 }
 # Tools that generate code samples can use SERVERS to point to the correct domain
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa F405
-    {"url": "https://ruveloper.dev", "description": "Production server"}
+    {"url": "http://localhost:8000/", "description": "Development server"},
+    {"url": "https://vims.ruveloper.dev/", "description": "Production server"},
 ]
 
 # * Google reCaptcha v3
