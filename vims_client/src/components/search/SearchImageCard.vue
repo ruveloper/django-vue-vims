@@ -61,7 +61,7 @@ onBeforeMount(() => {
     <button
       v-if="Object.keys(app.userData).length > 0"
       @click.stop="toggleFavorite"
-      class="hidden group-hover:flex btn btn-md btn-square btn-outline btn-primary absolute top-3 right-3 cursor-default bg-white/70 border-white"
+      class="btn btn-sm btn-square btn-outline btn-primary absolute top-3 right-3 cursor-default bg-white/60 border-white lg:btn-md lg:hidden lg:group-hover:flex"
     >
       <IconHeart v-if="!isFavorite" />
       <IconHeartRed v-if="isFavorite" />
