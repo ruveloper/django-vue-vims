@@ -11,8 +11,14 @@ def validate_recaptcha_form(request: Request) -> None:
     """
     token = request.data.get("g-recaptcha-response", None)
     if not token:
-        raise ValidationError({"non_field_errors": ["reCaptcha missing token"]})
+        raise ValidationError({"non_field_errors": ["Missing reCaptcha token."]})
     validation = validate_recaptcha_token(token)
     if not validation:
-        raise ValidationError({"non_field_errors": ["reCaptcha invalid Token"]})
+        raise ValidationError(
+            {
+                "non_field_errors": [
+                    "Sorry, we couldn't verify that you're not a bot. Please try again later."
+                ]
+            }
+        )
     return None
