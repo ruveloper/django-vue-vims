@@ -41,7 +41,7 @@ onMounted(() => {
       <p
         class="max-w-md my-3 text-center text-lg md:text-2xl text-white font-semibold drop-shadow-lg shadow-black"
       >
-        The best image vault and search aggregator, upload youserself or explore images and save as
+        The best image vault and search aggregator, explore images and save as
         favorites.
       </p>
 
